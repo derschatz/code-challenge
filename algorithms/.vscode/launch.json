@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Algo7",
+            "request": "launch",
+            "mainClass": "Algo7",
+            "projectName": "algorithms_3d314fc"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Algo1<algorithms_3d314fc>",
+            "request": "launch",
+            "mainClass": "Algo1",
+            "projectName": "algorithms_3d314fc"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Algo2<algorithms_3d314fc>",
+            "request": "launch",
+            "mainClass": "Algo2",
+            "projectName": "algorithms_3d314fc"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Algo3<algorithms_3d314fc>",
+            "request": "launch",
+            "mainClass": "Algo3",
+            "projectName": "algorithms_3d314fc"
+        }
+    ]
+}
