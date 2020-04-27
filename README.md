@@ -50,22 +50,28 @@ pale, bake ­> false
 
 
 [4. [Android] Search on a list:](https://github.com/derschatz/code-challenge/tree/master/application/searchapp)
+
+
 Write an application with one activity that shows a list of items and a search box. The
 user expects that the search returns a result even if word typed is partially permuted
 or it has one typo (like explained on previous problems), but not both.
 Linked Lists
 
 [5. Remove duplicates on email thread:](https://github.com/derschatz/code-challenge/blob/master/algorithms/Algo5.java)
+
 When different email clients are used on a same thread, the discussion get messy
 because old messages are included again and get duplicated. Given a email thread
 (represented by a singly unsorted linked list of messages), write a function that
 remove duplicated messages from it.
 
 [6. [Android] Email processor service:](https://github.com/derschatz/code-challenge/tree/master/application/EmailProcessorService)
+
 Write an application with one service (no activities) that receive requests from other
 apps with an email thread (as a linked­list), applies the previous algorithm and
 returns a cleaner version of same email thread. Concurrent requests should be
 queued.
+
+** This solution (Email processor service) was not tested **
 
 [7. Linked List Intersection:](https://github.com/derschatz/code-challenge/blob/master/algorithms/Algo7.java)
 
