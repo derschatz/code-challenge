@@ -23,12 +23,8 @@ public class EmailProcessorService extends Service {
     private static final String TAG = EmailProcessorService.class.getName();
     private static final String THREAD_NAME = "EmailServiceProcessor Handler Thread";
 
-    static final int MSG_REGISTER_CLIENT = 1;
-    static final int MSG_UNREGISTER_CLIENT = 2;
-    static final int MSG_PROCESS_REQUEST_FROM_CLIENT = 3;
-
-    static final int MSG_UNPROCESSED_REQUEST_MESSAGE = 10;
-    static final int MSG_PROCESSED_REQUEST_MESSAGE = 11;
+    static final int MSG_PROCESS_REQUEST_FROM_CLIENT = 1;
+    static final int MSG_PROCESSED_REQUEST_MESSAGE = 2;
 
 
     private final BlockingQueue<Message> mRequests = new LinkedBlockingDeque<>();
@@ -83,10 +79,6 @@ public class EmailProcessorService extends Service {
                 case MSG_PROCESS_REQUEST_FROM_CLIENT:
                     service.handleRequest(msg);
                     break;
-                case MSG_UNREGISTER_CLIENT:
-                    // TODO
-                case MSG_REGISTER_CLIENT:
-                    // TODO
                 default:
                     super.handleMessage(msg);
             }
