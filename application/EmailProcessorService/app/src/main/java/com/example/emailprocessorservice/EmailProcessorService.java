@@ -45,7 +45,7 @@ public class EmailProcessorService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
 
-        mMessenger = new Messenger(new IncomingHandler());
+        mMessenger = new Messenger(new IncomingHandler(this));
         return mMessenger.getBinder();
     }
 
@@ -53,8 +53,6 @@ public class EmailProcessorService extends Service {
     public void onCreate() {
         Log.i(TAG, "onCreate");
         mHandler = new Handler();
-//        final HandlerThread thread = new HandlerThread(THREAD_NAME);
-//        thread.start();
         super.onCreate();
     }
 
@@ -68,7 +66,14 @@ public class EmailProcessorService extends Service {
     /**
      * Handler of incoming messages from clients.
      */
-    class IncomingHandler extends Handler {
+    private static class IncomingHandler extends Handler {
+
+        EmailProcessorService service;
+
+        IncomingHandler(EmailProcessorService service){
+            this.service = service;
+        }
+
         @Override
         public void handleMessage(Message msg) {
             String logMessage = String.format(Locale.getDefault(), "Received message what= %d", msg.what);
@@ -76,7 +81,7 @@ public class EmailProcessorService extends Service {
 
             switch (msg.what) {
                 case MSG_PROCESS_REQUEST_FROM_CLIENT:
-                    handleRequest(msg);
+                    service.handleRequest(msg);
                     break;
                 case MSG_UNREGISTER_CLIENT:
                     // TODO

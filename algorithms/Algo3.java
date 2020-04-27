@@ -37,7 +37,7 @@ public final class Algo3 {
      * @param w2
      * @return
      */
-    public int countTypos(final String w1, final String w2) {
+    private int countTypos(final String w1, final String w2) {
         
         int[] distances1 = new int[w2.length() + 1];
         int[] distances2 = new int[w2.length() + 1];

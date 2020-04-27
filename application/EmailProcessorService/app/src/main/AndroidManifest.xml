@@ -12,19 +12,8 @@
 
         <service android:name=".EmailProcessorService"
             android:exported="true"
-            android:enabled="true"
-            android:externalService="true"
-            tools:targetApi="n"
-            android:permission="TODO"
             android:process=":remote"
             android:isolatedProcess="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <!-- Service name -->
-                <action android:name="com.example.emailprocessorservice.Service" />
-            </intent-filter>
-        </service>
+            android:enabled="true"/>
     </application>
 </manifest>

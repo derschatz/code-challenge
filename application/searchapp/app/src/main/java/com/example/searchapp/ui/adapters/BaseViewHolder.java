@@ -1,4 +1,4 @@
-package com.example.searchapp.ui.main;
+package com.example.searchapp.ui.adapters;
 
 import android.view.View;
 

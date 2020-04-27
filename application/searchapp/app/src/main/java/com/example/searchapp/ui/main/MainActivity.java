@@ -1,62 +1,69 @@
-package com.example.searchapp;
+package com.example.searchapp.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.searchapp.ui.main.TypoAdapter;
-
+import com.example.searchapp.R;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final List<String> mTypoList = new ArrayList<>();
+    private MainViewModel viewModel;
     private LinearLayoutManager mLayoutManager;
-    private TypoAdapter mTypoAdapter;
+    private WordAdapter mWordAdapter;
 
-    @BindView(R.id.rv_typo)
-    RecyclerView mTypoRecyclerView;
+    @BindView(R.id.tb_main)
+    Toolbar toolbar;
+
+    @BindView(R.id.rv_word)
+    RecyclerView mWordRecyclerView;
+
+    @BindView(R.id.sv_word_search)
+    SearchView mSearchView;
+
+
+    private Observer<? super ArrayList<String>> mWordListUpdateObserver;
+    private SearchView.OnQueryTextListener mWordQueryListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
         ButterKnife.bind(this);
 
-        initList();
-        setUpView();
+        setupToolbar();
+
+        mWordListUpdateObserver = new WordObserver(this);
+
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModel.getWordMutableLiveData().observe(this, mWordListUpdateObserver);
+
+        mWordQueryListener = new WordQueryListener();
+        mSearchView.setOnQueryTextListener(mWordQueryListener);
     }
 
-    private void initList() {
-        mTypoList.add(" you");
-        mTypoList.add("yuo");
-        mTypoList.add("probably");
-        mTypoList.add("porbalby");
-        mTypoList.add("despite");
-        mTypoList.add("desptie");
-        mTypoList.add("moon");
-        mTypoList.add("nmoo");
-        mTypoList.add("misspellings");
-        mTypoList.add("mpeissngslli");
-        mTypoList.add("pale");
-        mTypoList.add("ple");
-        mTypoList.add("pales");
-        mTypoList.add("pale");
-        mTypoList.add("pale");
-        mTypoList.add("bale");
-        mTypoList.add("pale");
-        mTypoList.add("bake");
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("Search App");;
+        }
     }
 
     @Override
@@ -75,18 +82,41 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_email) {
-            Toast.makeText(MainActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+            // todo
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpView() {
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mTypoRecyclerView.setLayoutManager(mLayoutManager);
-        mTypoRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mTypoAdapter = new TypoAdapter(mTypoList);
+    private class WordObserver implements Observer<ArrayList<String>> {
+        private final Context mContext;
+
+        public WordObserver(Context context) {
+            this.mContext = context;
+        }
+
+        @Override
+        public void onChanged(ArrayList<String> WordList) {
+            mLayoutManager = new LinearLayoutManager(mContext);
+            mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+            mWordRecyclerView.setLayoutManager(mLayoutManager);
+            mWordRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mWordAdapter = new WordAdapter(WordList);
+            mWordRecyclerView.setAdapter(mWordAdapter);
+        }
+    }
+
+    private class WordQueryListener implements SearchView.OnQueryTextListener {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            viewModel.filter(query);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
     }
 }

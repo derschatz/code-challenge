@@ -1,5 +1,6 @@
 package com.example.searchapp.ui.main;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,22 +9,23 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.searchapp.R;
+import com.example.searchapp.ui.adapters.BaseViewHolder;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TypoAdapter extends RecyclerView.Adapter<BaseViewHolder>{
+public class WordAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private static final String TAG = "TypoAdapter";
+    private static final String TAG = "WorldAdapter";
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
     private Callback mCallback;
     private List<String> mTypoList;
 
-    public TypoAdapter(List<String> typoList) {
+    public WordAdapter(List<String> typoList) {
         mTypoList = typoList;
     }
 
@@ -42,7 +44,7 @@ public class TypoAdapter extends RecyclerView.Adapter<BaseViewHolder>{
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
                 return new ViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.typo_list_item, parent, false));
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false));
             case VIEW_TYPE_EMPTY:
             default:
                 return new EmptyViewHolder(
@@ -96,7 +98,7 @@ public class TypoAdapter extends RecyclerView.Adapter<BaseViewHolder>{
             super.onBind(position);
             final String mTypo = mTypoList.get(position);
 
-            if (mTypo != null) {
+            if (!TextUtils.isEmpty(mTypo)) {
                 typoTextView.setText(mTypo);
             }
         }
