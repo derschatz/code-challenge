@@ -7,6 +7,8 @@ pseudo­code) and include (in text form) its corresponding complexity in time
 and space. You can use any language of your choice.
 Arrays and Strings
 
+** I provide the time (and spatial, when relevant) complexity at the header of each solution. ** 
+
 1. [Replacing characters in place:](https://github.com/derschatz/code-challenge/blob/master/algorithms/Algo1.java)
 
 
